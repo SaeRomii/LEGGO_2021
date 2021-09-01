@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="com.leggo"/>
+
+	<!-- dataSource -->
+	<bean id="localDataSource" class = "org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@211.238.142.157:1521:xe"></property>
+		<property name="username" value="leggo"></property>
+		<property name="password" value="java006$"></property>
+	</bean>
+
+	<!-- localDataSource의 생명유지장치 -->
+	<!-- mapperLocation -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">	
+		<property name = "dataSource" ref="localDataSource"></property>
+		<property name="mapperLocations" value="classpath:com/leggo/mapper/*.xml"></property>
+		<!-- DB쪽에서는 dataSource, 프로그램쪽에서는 mapper 시켜야하는데 
+		mapper location정보는 저 xml, .xml 일 것이고, PlanDAO.xml에서 매핑을 한다.  -->
+	</bean>
+		
+	<!-- sqlSession 등록 과정에서 생겨나는 추가 코드  -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+
+</beans>
+
+
