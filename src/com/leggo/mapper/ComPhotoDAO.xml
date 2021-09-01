@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.leggo.comphoto.IComPhotoDAO"><!-- implements IComTripDAO -->
+
+	<select id="list" resultType="com.leggo.comphoto.ComPhotoDTO">
+		SELECT MD.MEM_IMG, MD.MEM_NNM, PP.PP_HITS, TO_CHAR(PP.PP_DT, 'YYYY-MM-DD'), PP.PP_CONT, PP.PP_NM, PP.PP_LAT, PP.PP_LONG, PP.PP_CD
+		FROM PHOTO_POST PP LEFT JOIN MEMBER_DATA MD
+     	ON PP.MEM_CD = MD.MEM_CD
+	</select>
+
+
+</mapper>
