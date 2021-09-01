@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.leggo.comPlan.IComPlanDAO"><!-- implements IComTripDAO -->
+
+	<select id="list" resultType="com.leggo.complan.ComPlanDTO">
+		SELECT MD.MEM_IMG, MD.MEM_NNM, PL.PL_TT, PL.PL_STT, PL.TR_HITS, PL.PL_IMG, TO_CHAR(PL.PL_DT, 'YYYY-MM-DD')
+		FROM PLAN PL LEFT JOIN MEMBER_DATA MD
+     	ON PL.MEM_CD = MD.MEM_CD
+	</select>
+
+</mapper>
